@@ -449,8 +449,8 @@ class EasyLoading {
 
     if (loadingStyle == EasyLoadingStyle.custom) {
       assert(
-        backgroundColor != null,
-        'while loading style is custom, backgroundColor should not be null',
+        !(backgroundColor == null && customBackgroundColor == null),
+        'while loading style is custom, backgroundColor or customBackgroundColor should not be null',
       );
       assert(
         indicatorColor != null,
