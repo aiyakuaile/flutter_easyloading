@@ -36,17 +36,21 @@ class EasyLoadingContainer extends StatefulWidget {
   final EasyLoadingMaskType? maskType;
   final Completer<void>? completer;
   final bool animation;
+  final bool isToast;
+  final Color? customBackgroundColor;
 
-  const EasyLoadingContainer({
-    Key? key,
-    this.indicator,
-    this.status,
-    this.dismissOnTap,
-    this.toastPosition,
-    this.maskType,
-    this.completer,
-    this.animation = true,
-  }) : super(key: key);
+  const EasyLoadingContainer(
+      {Key? key,
+      this.indicator,
+      this.status,
+      this.dismissOnTap,
+      this.toastPosition,
+      this.maskType,
+      this.completer,
+      this.animation = true,
+      this.isToast = false,
+      this.customBackgroundColor})
+      : super(key: key);
 
   @override
   EasyLoadingContainerState createState() => EasyLoadingContainerState();
@@ -166,6 +170,8 @@ class EasyLoadingContainerState extends State<EasyLoadingContainer>
               _Indicator(
                 status: _status,
                 indicator: widget.indicator,
+                isToast: widget.isToast,
+                customBackgroundColor: widget.customBackgroundColor,
               ),
               _animationController,
               _alignment,
@@ -180,22 +186,32 @@ class EasyLoadingContainerState extends State<EasyLoadingContainer>
 class _Indicator extends StatelessWidget {
   final Widget? indicator;
   final String? status;
+  final bool isToast;
+  final Color? customBackgroundColor;
 
   const _Indicator({
     required this.indicator,
     required this.status,
+    required this.isToast,
+    this.customBackgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
+    final backgroundColor = customBackgroundColor ??
+        (isToast
+            ? EasyLoadingTheme.toastBackgroundColor
+            : EasyLoadingTheme.loadingBackgroundColor);
     return Container(
       margin: const EdgeInsets.all(50.0),
       decoration: BoxDecoration(
-        color: EasyLoadingTheme.backgroundColor,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(
           EasyLoadingTheme.radius,
         ),
-        boxShadow: EasyLoadingTheme.boxShadow,
+        boxShadow: backgroundColor == Colors.transparent
+            ? null
+            : EasyLoadingTheme.boxShadow,
       ),
       padding: EasyLoadingTheme.contentPadding,
       child: Column(

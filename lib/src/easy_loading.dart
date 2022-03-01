@@ -165,7 +165,13 @@ class EasyLoading {
 
   /// background color of loading, only used for [EasyLoadingStyle.custom].
   Color? backgroundColor;
-  
+
+  /// loading backgroundColor only used for [EasyLoadingStyle.custom],default use backgroundColor.
+  Color? loadingBackgroundColor;
+
+  /// toast backgroundcolor, only used for [EasyLoadingStyle.custom], default use backgroundColor.
+  Color? toastBackgroundColor;
+
   /// boxShadow of loading, only used for [EasyLoadingStyle.custom].
   List<BoxShadow>? boxShadow;
 
@@ -251,6 +257,7 @@ class EasyLoading {
     Widget? indicator,
     EasyLoadingMaskType? maskType,
     bool? dismissOnTap,
+    Color? backgroundColor,
   }) {
     Widget w = indicator ?? (_instance.indicatorWidget ?? LoadingIndicator());
     return _instance._show(
@@ -258,6 +265,7 @@ class EasyLoading {
       maskType: maskType,
       dismissOnTap: dismissOnTap,
       w: w,
+      customBackgroundColor: backgroundColor,
     );
   }
 
@@ -266,6 +274,7 @@ class EasyLoading {
     double value, {
     String? status,
     EasyLoadingMaskType? maskType,
+    Color? backgroundColor,
   }) async {
     assert(
       value >= 0.0 && value <= 1.0,
@@ -292,6 +301,7 @@ class EasyLoading {
         maskType: maskType,
         dismissOnTap: false,
         w: w,
+        customBackgroundColor: backgroundColor,
       );
       _instance._progressKey = _progressKey;
     }
@@ -307,6 +317,7 @@ class EasyLoading {
     Duration? duration,
     EasyLoadingMaskType? maskType,
     bool? dismissOnTap,
+    Color? backgroundColor,
   }) {
     Widget w = _instance.successWidget ??
         Icon(
@@ -320,6 +331,7 @@ class EasyLoading {
       maskType: maskType,
       dismissOnTap: dismissOnTap,
       w: w,
+      customBackgroundColor: backgroundColor,
     );
   }
 
@@ -329,6 +341,7 @@ class EasyLoading {
     Duration? duration,
     EasyLoadingMaskType? maskType,
     bool? dismissOnTap,
+    Color? backgroundColor,
   }) {
     Widget w = _instance.errorWidget ??
         Icon(
@@ -342,6 +355,7 @@ class EasyLoading {
       maskType: maskType,
       dismissOnTap: dismissOnTap,
       w: w,
+      customBackgroundColor: backgroundColor,
     );
   }
 
@@ -351,6 +365,7 @@ class EasyLoading {
     Duration? duration,
     EasyLoadingMaskType? maskType,
     bool? dismissOnTap,
+    Color? backgroundColor,
   }) {
     Widget w = _instance.infoWidget ??
         Icon(
@@ -364,6 +379,7 @@ class EasyLoading {
       maskType: maskType,
       dismissOnTap: dismissOnTap,
       w: w,
+      customBackgroundColor: backgroundColor,
     );
   }
 
@@ -374,6 +390,7 @@ class EasyLoading {
     EasyLoadingToastPosition? toastPosition,
     EasyLoadingMaskType? maskType,
     bool? dismissOnTap,
+    Color? backgroundColor,
   }) {
     return _instance._show(
       status: status,
@@ -381,6 +398,8 @@ class EasyLoading {
       toastPosition: toastPosition ?? EasyLoadingTheme.toastPosition,
       maskType: maskType,
       dismissOnTap: dismissOnTap,
+      isToast: true,
+      customBackgroundColor: backgroundColor,
     );
   }
 
@@ -420,6 +439,8 @@ class EasyLoading {
     EasyLoadingMaskType? maskType,
     bool? dismissOnTap,
     EasyLoadingToastPosition? toastPosition,
+    bool isToast = false,
+    Color? customBackgroundColor,
   }) async {
     assert(
       overlayEntry != null,
@@ -472,6 +493,8 @@ class EasyLoading {
       maskType: maskType,
       dismissOnTap: dismissOnTap,
       completer: completer,
+      isToast: isToast,
+      customBackgroundColor: customBackgroundColor,
     );
     completer.future.whenComplete(() {
       _callback(EasyLoadingStatus.show);

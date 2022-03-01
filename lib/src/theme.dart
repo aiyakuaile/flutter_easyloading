@@ -53,6 +53,22 @@ class EasyLoadingTheme {
               ? Colors.black.withOpacity(0.9)
               : Colors.white;
 
+  /// loadingbackground color
+  static Color get loadingBackgroundColor =>
+      EasyLoading.instance.loadingStyle == EasyLoadingStyle.custom
+          ? (EasyLoading.instance.loadingBackgroundColor ?? backgroundColor)
+          : EasyLoading.instance.loadingStyle == EasyLoadingStyle.dark
+              ? Colors.black.withOpacity(0.9)
+              : Colors.white;
+
+  /// toast background color
+  static Color get toastBackgroundColor =>
+      EasyLoading.instance.loadingStyle == EasyLoadingStyle.custom
+          ? EasyLoading.instance.toastBackgroundColor ?? backgroundColor
+          : EasyLoading.instance.loadingStyle == EasyLoadingStyle.dark
+              ? Colors.black.withOpacity(0.9)
+              : Colors.white;
+
   /// boxShadow color of loading
   static List<BoxShadow>? get boxShadow =>
       EasyLoading.instance.loadingStyle == EasyLoadingStyle.custom

@@ -152,6 +152,12 @@ Color progressColor;
 /// background color of loading, only used for [EasyLoadingStyle.custom].
 Color backgroundColor;
 
+/// loading backgroundColor only used for [EasyLoadingStyle.custom],default use backgroundColor.
+Color? loadingBackgroundColor;
+
+/// toast backgroundcolor, only used for [EasyLoadingStyle.custom], default use backgroundColor.
+Color? toastBackgroundColor;
+
 /// mask color of loading, only used for [EasyLoadingMaskType.custom].
 Color maskColor;
 
