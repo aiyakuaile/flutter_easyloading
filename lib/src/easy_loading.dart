@@ -448,9 +448,12 @@ class EasyLoading {
     );
 
     if (loadingStyle == EasyLoadingStyle.custom) {
+      final color = customBackgroundColor ??
+          ((isToast ? toastBackgroundColor : loadingBackgroundColor) ??
+              backgroundColor);
       assert(
-        !(backgroundColor == null && customBackgroundColor == null),
-        'while loading style is custom, backgroundColor or customBackgroundColor should not be null',
+        color != null,
+        'while loading style is custom, backgroundColor != null or toastBackgroundColor, loadingBackgroundColor != null or customBackgroundColor != null',
       );
       assert(
         indicatorColor != null,
